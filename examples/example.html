@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <title>Photo Sphere Viewer</title>
+    <meta name="viewport" content="initial-scale=1.0"/>
+    <script src="../three.min.js"></script>
+    <script src="../photo-sphere-viewer.min.js"></script>
+    <script src="../src/PhotoSphereViewer.js"></script>
+    <script src="../src/jquery.min.js"></script>
+    <link rel="stylesheet" href="example1.css"/>
+    <style>
+        html, body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .loader {
+            margin: 25% auto;
+            width: 30px;
+            height: 30px;
+            border: 3px solid transparent;
+            border-top-color: #0096FF;
+            border-radius: 50%;
+            animation: spin 0.8s ease infinite;
+        }
+    </style>
+</head>
+
+<body style="position: relative;">
+<div id="container">
+</div>
+<div id="guideImg" style="display: none; position: absolute; right: 48px; top: 5px; width: 700px; height: 500px;z-index: 99999;background-color: aliceblue;">
+    <img src="guideImg.png" style="width: 100%;height: 100%;" onclick="changeImg()">
+</div>
+<script type="text/javascript">
+    // Loader
+    var loader = document.createElement('div');
+    loader.className = 'loader';
+    var div = document.getElementById('container');
+    var loadImg = '../examples/snow.jpg';
+    var PSV = new PhotoSphereViewer({
+        //panorama全景网址或路径（绝对或相对）
+        panorama: loadImg,
+        // Container  panorama的容器
+        container: div,
+        // Deactivate the animation
+        time_anim: false,
+        // Display the navigation bar 底部导航条
+        navbar: true,
+        // Resize the panorama 大小
+        size: {
+            width: '100%',
+            height: '100%'
+        },
+        // HTML loader 加载中的html
+        loading_html: loader,
+        //tilt_up_max最大倾斜上升角度(拍的不好可以调整下）
+        tilt_up_max: '15deg',
+        //tilt_up_max最大倾斜下角
+        tilt_down_max: '0deg',
+        //allow_scroll_to_zoom 滚动缩放
+        allow_scroll_to_zoom: true,
+        //allow_user_interactions false则用户将无法与全景图进行交互，禁用导航栏
+        allow_user_interactions: true,
+        // Disable smooth moves to test faster 如果设置为“false”，则用户移动的速度由`long_offset`和`lat_offset`固定
+        smooth_user_moves: false,
+        // long_offset:'15deg',
+        // lat_offset:'15deg',
+        overlay: {
+            id: 'img',
+            image: 'smallGuideImg.png',
+            size: {
+                width: '42px'
+            },
+            position: {
+                x: 'right',
+                y: 'top'
+            }
+        },
+        reverse_anim: true
+        // segments:100,//球体上的线段数
+        // rings: 100 //- 球体上的环数
+    });
+    var isShowGuideView = false;
+    function changeImg() {
+        console.log("222");
+        loadImg =  '../examples/sun.jpg';
+        PSV = new PhotoSphereViewer({
+            //panorama全景网址或路径（绝对或相对）
+            panorama: loadImg,
+            // Container  panorama的容器
+            container: div,
+            // Deactivate the animation
+            time_anim: false,
+            // Display the navigation bar 底部导航条
+            navbar: true,
+            // Resize the panorama 大小
+            size: {
+                width: '100%',
+                height: '100%'
+            },
+            // HTML loader 加载中的html
+            loading_html: loader,
+            //tilt_up_max最大倾斜上升角度(拍的不好可以调整下）
+            tilt_up_max: '15deg',
+            //tilt_up_max最大倾斜下角
+            tilt_down_max: '0deg',
+            //allow_scroll_to_zoom 滚动缩放
+            allow_scroll_to_zoom: true,
+            //allow_user_interactions false则用户将无法与全景图进行交互，禁用导航栏
+            allow_user_interactions: true,
+            // Disable smooth moves to test faster 如果设置为“false”，则用户移动的速度由`long_offset`和`lat_offset`固定
+            smooth_user_moves: false,
+            overlay: {
+                id: 'img',
+                image: 'smallGuideImg.png',
+                size: {
+                    width: '42px'
+                },
+                position: {
+                    x: 'right',
+                    y: 'top'
+                }
+            }
+        });
+        PSV.load();
+    }
+    jQuery(document).ready(function () {
+        $('body').click(function (e) {
+            if (e.target.id === 'overlayImg') {
+                isShowGuideView = !isShowGuideView;
+                if(isShowGuideView){
+                    $('#guideImg')[0].style.display = "block";
+                }else {
+                    $('#guideImg')[0].style.display = "none";
+                }
+            }
+        });
+    })
+</script>
+</body>
+</html>
