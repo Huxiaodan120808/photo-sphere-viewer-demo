@@ -19,7 +19,7 @@ function loadPredefinedPanorama(evt) {
 
 	var PSV = new PhotoSphereViewer({
 		// Path to the panorama
-		panorama: 'sun.jpg',
+		panorama: 'img/sun.jpg',
 
 		// Container
 		container: div,
@@ -41,7 +41,7 @@ function loadPredefinedPanorama(evt) {
 
 		// Overlay
 		overlay: {
-			image: 'overlay.png',
+			image: 'img/overlay.png',
 			size: {
 				width: '42px'
 			},

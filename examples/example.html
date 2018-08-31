@@ -17,14 +17,12 @@
             height: 100%;
             overflow: hidden;
         }
-
         #container {
             width: 100%;
             height: 100%;
         }
-
         .loader {
-            margin: 25% auto;
+            margin: 20% auto;
             width: 30px;
             height: 30px;
             border: 3px solid transparent;
@@ -32,21 +30,30 @@
             border-radius: 50%;
             animation: spin 0.8s ease infinite;
         }
+        #overlayImg{cursor: pointer;}
     </style>
 </head>
 
 <body style="position: relative;">
-<div id="container">
+<div id="guideImg" style="display: none; position: absolute; right: 48px; top: 5px; width: 700px; height: 400px;z-index: 100;background-color: transparent;" onmouseleave="hideGuideImg()">
+    <img src="img/location.png" style="position: absolute;right: 439px;top: 38px;width: 20px;z-index: 110;cursor: pointer;" onclick="changeImg('3')">
+    <img src="img/location.png" style="position: absolute;right: 436px;top: 6px;width: 20px;z-index: 111;cursor: pointer;" onclick="changeImg('4')">
+    <img src="img/location.png" style="position: absolute;right: 493px;top: 6px;width: 20px;z-index: 112;cursor: pointer;" onclick="changeImg('5')">
+    <img src="img/location.png" style="position: absolute;right: 502px;top: 55px;width: 20px;z-index: 113;cursor: pointer;" onclick="changeImg('6')">
+    <img src="img/location.png" style="position: absolute;right: 441px;top: 65px;width: 20px;z-index: 114;cursor: pointer;" onclick="changeImg('2')">
+    <img src="img/location.png" style="position: absolute;right: 366px;top:26px;width: 20px;z-index: 115;cursor: pointer;" onclick="changeImg('2')">
+    <img src="img/location.png" style="position: absolute;right: 366px;top:26px;width: 20px;z-index: 116;cursor: pointer;" onclick="changeImg('1')">
+    <img src="img/location.png" style="position: absolute;right: 374px;top:296px;width: 20px;z-index: 117;cursor: pointer;" onclick="changeImg('0')">
+    <img src="img/guideImg.png" style="width: 100%;height: 100%;">
 </div>
-<div id="guideImg" style="display: none; position: absolute; right: 48px; top: 5px; width: 700px; height: 500px;z-index: 99999;background-color: aliceblue;">
-    <img src="guideImg.png" style="width: 100%;height: 100%;" onclick="changeImg()">
-</div>
+<div id="container"></div>
+
 <script type="text/javascript">
     // Loader
     var loader = document.createElement('div');
     loader.className = 'loader';
     var div = document.getElementById('container');
-    var loadImg = '../examples/snow.jpg';
+    var loadImg = '../examples/img/snow.jpg';
     var PSV = new PhotoSphereViewer({
         //panorama全景网址或路径（绝对或相对）
         panorama: loadImg,
@@ -77,7 +84,7 @@
         // lat_offset:'15deg',
         overlay: {
             id: 'img',
-            image: 'smallGuideImg.png',
+            image: 'img/smallGuideImg.png',
             size: {
                 width: '42px'
             },
@@ -91,9 +98,37 @@
         // rings: 100 //- 球体上的环数
     });
     var isShowGuideView = false;
-    function changeImg() {
-        console.log("222");
-        loadImg =  '../examples/sun.jpg';
+    function changeImg(num) {
+        switch (num){
+            case '0':{
+                loadImg =  '../examples/img/sun.jpg';
+                break;
+            }
+            case '1':{
+                loadImg =  '../examples/img/snow.jpg';
+                break;
+            }
+            case '2':{
+                loadImg =  '../examples/img/snow.jpg';
+                break;
+            }
+            case '3':{
+                loadImg =  '../examples/img/snow.jpg';
+                break;
+            }
+            case '4':{
+                loadImg =  '../examples/img/sun.jpg';
+                break;
+            }
+            case '5':{
+                loadImg =  '../examples/img/snow.jpg';
+                break;
+            }
+            case '6':{
+                loadImg =  '../examples/img/office1.jpg';
+                break;
+            }
+        }
         PSV = new PhotoSphereViewer({
             //panorama全景网址或路径（绝对或相对）
             panorama: loadImg,
@@ -122,7 +157,7 @@
             smooth_user_moves: false,
             overlay: {
                 id: 'img',
-                image: 'smallGuideImg.png',
+                image: 'img/smallGuideImg.png',
                 size: {
                     width: '42px'
                 },
@@ -133,6 +168,10 @@
             }
         });
         PSV.load();
+        $('#guideImg')[0].style.display = "none";
+    }
+    function hideGuideImg() {
+        $('#guideImg')[0].style.display = "none";
     }
     jQuery(document).ready(function () {
         $('body').click(function (e) {
@@ -140,6 +179,7 @@
                 isShowGuideView = !isShowGuideView;
                 if(isShowGuideView){
                     $('#guideImg')[0].style.display = "block";
+                    console.log("222");
                 }else {
                     $('#guideImg')[0].style.display = "none";
                 }
